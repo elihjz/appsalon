@@ -27,5 +27,5 @@
 
 <div class="acciones">
     <a href="/crear-cuenta">Aun no tienes cuneta? crea una.</a>
-    <a href="/olvide">Olvidaste tu contraseña</a>
+    <a href="/olvide">Olvidaste tu</a>
 </div>
