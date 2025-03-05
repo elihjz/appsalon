@@ -1,6 +1,6 @@
 {
-    "name": "tetos/appsalon",
-    "description": "PHP8-MVC-SQL-SASS,GULP",
+    "name": "hxh/hxh",
+    "description": "appsalon",
     "type": "project",
     "autoload": {
         "psr-4": {
