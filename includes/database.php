@@ -1,6 +1,6 @@
 <?php
 
-    $db = new mysqli('localhost','root','','appsalon');
+    $db = new mysqli('localhost','root','','appsalon_mvc');
 
     if (!$db) {
         echo "Error: No se pudo conectar";
