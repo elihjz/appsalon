@@ -16,6 +16,8 @@ class Usuario extends ActiveRecord{
     public $confirmado;
     public $token;
 
+    protected static $alertas =[];
+
     public function __construct($args = [])
     {
         $this->id = $args['id']?? null;
@@ -27,5 +29,15 @@ class Usuario extends ActiveRecord{
         $this->admin = $args['admin']?? null;
         $this->confirmado = $args['confirmado']?? null;
         $this->token = $args['token']?? '';
+    }
+
+    public function validarNuevaCuenta(){
+        if (!$this->nombre) {
+            self::$alertas['error'][]='El nombre del cliente es obligatorio';
+        }
+        if (!$this->apellido) {
+            self::$alertas['error'][]='El apellido del cliente es obligatorio';
+        }
+        return self::$alertas;
     }
 }
