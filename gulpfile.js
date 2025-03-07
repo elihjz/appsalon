@@ -33,7 +33,7 @@ export function js( done ) {
 export async function imagenes(done) {
     const srcDir = './src/img';
     const buildDir = './public/build/img';
-    const images =  await glob('./src/img/**/*')
+    const images = await glob('./src/img/**/*')
 
     images.forEach(file => {
         const relativePath = path.relative(srcDir, path.dirname(file));
