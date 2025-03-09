@@ -29,19 +29,23 @@ class LoginController{
         $usuario = new Usuario;
 
         $alertas =[];
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] === 'POST') {
             $usuario->sincronizar($_POST);
             $alertas = $usuario->validarNuevaCuenta();
-        }
 
-        if (empty($alertas)) {
+        if(empty($alertas)) {
             $resultado = $usuario->existeUsuario();
+            // dep($resultado);
             if ($resultado->num_rows) {
                 $alertas = Usuario::getAlertas();
-            }else {
-                dep('Usuario no registrado');
+            }else{
+                $usuario->hashPassword();
+                dep($usuario);
             }
         }
+
+        }
+
 
         $router->render('auth/crear-cuenta',[
             'usuario' => $usuario,

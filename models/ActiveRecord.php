@@ -8,7 +8,7 @@ class ActiveRecord {
     protected static $columnasDB =[];
     protected static $tabla = '';
 
-    // protected static $errores =[];
+    protected static $errores =[];
     protected static $alertas =[];
     
     public static function setDB($database){
@@ -93,14 +93,14 @@ class ActiveRecord {
         }
     }
 
-    // public static function getErrores(){
-    //     return self::$errores;
-    // }
+    public static function getErrores(){
+        return self::$errores;
+    }
 
-    // public function validar(){
-    //     static::$errores = [];
-    //     return static::$errores;
-    // }
+    public function validar(){
+        static::$errores = [];
+        return static::$errores;
+    }
 
     public function setImagen($imagen){
         if (!is_null($this->id)) {
