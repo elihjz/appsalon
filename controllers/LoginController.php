@@ -43,6 +43,7 @@ class LoginController{
                 $usuario->hashPassword();
                 $usuario->crearToken();
                 $email = new Email($usuario->nombre,$usuario->email,$usuario->token);
+                $email->enviarConfirmacion();
                 dep($email);
             }
         }
