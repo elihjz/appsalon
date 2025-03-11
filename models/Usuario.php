@@ -20,15 +20,15 @@ class Usuario extends ActiveRecord{
 
     public function __construct($args = [])
     {
-        $this->id = $args['id']?? null;
-        $this->nombre = $args['nombre']?? '';
-        $this->apellido = $args['apellido']?? '';
-        $this->email = $args['email']?? '';
-        $this->password = $args['password']?? '';
-        $this->telefono = $args['telefono']?? '';
-        $this->admin = $args['admin']?? null;
-        $this->confirmado = $args['confirmado']?? null;
-        $this->token = $args['token']?? '';
+        $this->id = $args['id'] ?? null;
+        $this->nombre = $args['nombre'] ?? '';
+        $this->apellido = $args['apellido'] ?? '';
+        $this->email = $args['email'] ?? '';
+        $this->password = $args['password'] ?? '';
+        $this->telefono = $args['telefono'] ?? '';
+        $this->admin = $args['admin'] ?? '0';
+        $this->confirmado = $args['confirmado'] ?? '0';
+        $this->token = $args['token'] ?? '';
     }
 
     public function validarNuevaCuenta(){

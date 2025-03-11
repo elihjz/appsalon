@@ -6,7 +6,7 @@ class ActiveRecord {
 
     protected static $db;
     protected static $columnasDB =[];
-    protected static $tabla = '';
+    protected static $tablas = '';
 
     protected static $errores =[];
     protected static $alertas =[];
@@ -16,24 +16,27 @@ class ActiveRecord {
     }
 
     public function guardar(){
+        $resultado = '';
         if(!is_null($this->id)){
-            $this->actualizar();
+            $resultado = $this->actualizar();
         }else{
-            $this->crear();
+            $resultado = $this->crear();
         }
+        return $resultado;
     }
 
     public function crear(){
         $atributos = $this->sanitizarAtributos();
         
-        $query = "INSERT INTO ".static::$tabla." ( ";
+        $query = "INSERT INTO ".static::$tablas. " ( ";
         $query.= join(', ', array_keys($atributos));
         $query.= " ) VALUES (' ";
         $query.= join("', '", array_values($atributos));
         $query.= "')";
+        dep($query);
         $resultado = self::$db->query($query);
         if ($resultado) {
-            header('Location: /admin?resultado=1');
+            header('Location: /mensaje');
         }
     }
 
@@ -45,7 +48,7 @@ class ActiveRecord {
             $valores[]="{$key}='{$value}'";
         }
         // dep($valores);
-        $query = "UPDATE ".static::$tabla." SET "; 
+        $query = "UPDATE ".static::$tablas." SET "; 
         $query .=join(', ',$valores);
         $query .="WHERE id='".self::$db->escape_string($this->id)."'" ;
         $query .=" LIMIT 1;";
@@ -59,7 +62,7 @@ class ActiveRecord {
     }
 
     public function eliminar(){
-        $query = "DELETE FROM ".static::$tabla." WHERE id =".self::$db->escape_string($this->id)." LIMIT 1";
+        $query = "DELETE FROM ".static::$tablas." WHERE id =".self::$db->escape_string($this->id)." LIMIT 1";
         $resultado = self::$db->query($query);
 
         if ($resultado) {
@@ -112,14 +115,14 @@ class ActiveRecord {
     }
 
     public static function all(){
-        $query = "SELECT * FROM ".static::$tabla;
+        $query = "SELECT * FROM ".static::$tablas;
         $resultado = self::consultarSQL($query);
 
         return $resultado;
     }
 
     public static function get($cantidad){
-        $query = "SELECT * FROM ". static::$tabla." LIMIT ". $cantidad;
+        $query = "SELECT * FROM ". static::$tablas." LIMIT ". $cantidad;
 
         $resultado = self::consultarSQL($query);
         return $resultado;
@@ -147,7 +150,7 @@ class ActiveRecord {
     }
 
     public static function find($id){
-        $query = "SELECT * FROM ".static::$tabla." WHERE id = ${id}";
+        $query = "SELECT * FROM ".static::$tablas." WHERE id = ${id}";
 
         $resultado = self::consultarSQL($query);
         return array_shift($resultado);
