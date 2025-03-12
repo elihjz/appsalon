@@ -33,7 +33,7 @@ class ActiveRecord {
         $query.= " ) VALUES (' ";
         $query.= join("', '", array_values($atributos));
         $query.= "')";
-        dep($query);
+        // dd($query);
         $resultado = self::$db->query($query);
         if ($resultado) {
             header('Location: /mensaje');
@@ -152,6 +152,12 @@ class ActiveRecord {
     public static function find($id){
         $query = "SELECT * FROM ".static::$tablas." WHERE id = ${id}";
 
+        $resultado = self::consultarSQL($query);
+        return array_shift($resultado);
+    }
+    public static function where($columna, $valor){
+        $query = "SELECT * FROM ".static::$tablas." WHERE ${columna} = '${valor}'";
+        dd($query);
         $resultado = self::consultarSQL($query);
         return array_shift($resultado);
     }
