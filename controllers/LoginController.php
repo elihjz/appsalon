@@ -9,7 +9,20 @@ use MVC\Router;
 class LoginController{
     
     public static function login(Router $router){
-        $router->render('auth/login');
+        $alertas =[];
+
+        // $auth = new Usuario;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $auth = new Usuario($_POST);
+
+            $alertas = $auth->validarLogin();
+            dd($auth);
+        }
+        $router->render('auth/login',[
+            'alertas' => $alertas
+            // 'auth' => $auth
+        ]);
     }
     
     public static function logout(){
@@ -70,8 +83,21 @@ class LoginController{
         $alertas =[];
 
         $token =s($_GET['token']);
+        
         $usuario = Usuario::where('token',$token);
+
+        if(empty($usuario)) {
+            Usuario::setAlerta('error','Token no valido');
+        }else{
+            $usuario->confirmado = '1';//aqui accedemos a los objetos de usuario y reasignamos valores para guardar
+            $usuario->token = null;
+            // dd($usuario);
+            // die();
+            $usuario->guardar();
+            Usuario::setAlerta('exito','Cuenta comprobada correctamente');
+        }
         // dd($usuario);
+        $alertas = Usuario::getAlertas();
         $router->render('auth/confirmar-cuenta',[
             'alertas' => $alertas
         ]);

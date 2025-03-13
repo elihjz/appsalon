@@ -56,7 +56,7 @@ class ActiveRecord {
         ob_start();
         $resultado = self::$db->query($query);
         if ($resultado){
-            header('location:/admin?resultado=2');
+            header('location: /');
             exit;
         }
     }
