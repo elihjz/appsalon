@@ -24,7 +24,7 @@
             type="password"
             id="password"
             placeholder="Tu password"
-            namespace="password"
+            name="password"
             />
     </div>
 
