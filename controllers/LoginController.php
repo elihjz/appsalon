@@ -25,6 +25,20 @@ class LoginController{
                 // var_dump($usuario);
                 if ($usuario) {
                     $usuario->comprobarPasswordAndVerificado($auth->password);
+
+                    $_SESSION['id'] =$usuario->id;
+                    $_SESSION['nombre'] =$usuario->nombre." ".$usuario->apellido;
+                    $_SESSION['email'] =$usuario->email;
+                    $_SESSION['login'] =true;
+
+                    if ($usuario->admin === "1") {
+                        $_SESSION['admin'] = $usuario->admin ?? null;
+                        dd('Adminuser');
+                        header('Location: /admin');
+                    }else{
+                        dd('Es cliente');
+                        header('Location: /cita');
+                    }
                 }else{
                     Usuario::setAlerta('error','Usuario no encontrado');
                 }
