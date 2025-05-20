@@ -63,9 +63,7 @@ class LoginController{
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $auth = new Usuario($_POST);
             $alertas = $auth->validarEmail();
-            dd($auth); 
-            var_dump($_POST);
-            var_dump($auth);
+            dd($auth);
         }
 
         $router->render('/auth/olvide-password',[
